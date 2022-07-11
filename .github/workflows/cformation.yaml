@@ -24,7 +24,7 @@ jobs:
     - uses: mgenteluci/cloudformation-deploy-action@v1.4.1
       env:
         TEMPLATE: 'vpc.yaml'
-        AWS_STACK_NAME: 'baxi-test-stack123'
+        AWS_STACK_NAME: baxi-test-stack123
         AWS_REGION: 'us-east-1'
         AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
         AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
