@@ -1,0 +1,32 @@
+name: Deploy CloudFormation Stack
+
+on: 
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+# REFERENCE https://github.com/aws-samples/aws-cloudformation-starter-workflow-for-github-actions/blob/master/.github/workflows/deploy.yml
+
+    # Configure AWS Credential
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+      # Deploy to AWS CloudFormation
+    - name: Deploy to AWS CloudFormation
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: test-stack
+        template: vpc.yaml
+        no-fail-on-empty-changeset: "1"
+        parameter-overrides: >-
+          EnvironmentName="test-stack-vpc"
